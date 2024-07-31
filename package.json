@@ -1,0 +1,12 @@
+{
+  "name": "youtube-local-library",
+  "version": "1.0.0",
+  "description": "Create YouTube playlists locally",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/nikitahl/youtube-local-library",
+    "type": "git"
+  },
+  "author": "Nikita Hlopov",
+  "license": "MIT"
+}
