@@ -1,33 +1,32 @@
-// content.js
+const { chrome } = window;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // const pageUrl = new URL(window.location.href);
   // const pageType = pageUrl.pathname;
   // console.log('pageType',pageType)
 
-
-  console.log('message',message)
-  console.log('sender',sender)
-  if (message.action === "getLinkParams") {
+  // console.log('message',message);
+  // console.log('sender',sender);
+  if (message.action === 'getLinkParams') {
     const linkUrl = message.linkUrl;
     const linkElements = Array.from(document.querySelectorAll('a')).filter(link => link.href === linkUrl);
-    console.log('linkElements',linkElements)
+    console.log('linkElements',linkElements);
 
     const linkText = getText(linkElements);
     const linkMeta = getMeta(linkElements, message.linkType);
-    console.log('linkText',linkText)
-    console.log('linkMeta',linkMeta)
+    console.log('linkText',linkText);
+    console.log('linkMeta',linkMeta);
     sendResponse({
       linkText: linkText,
       linkMeta: linkMeta
     });
   }
-  if (message.action === "openPopup") {
+  if (message.action === 'openPopup') {
     const { link, type, linkText, linkMeta } = message;
-    console.log('openPopup', {link, type, linkText, linkMeta});
+    console.log('openPopup', { link, type, linkText, linkMeta });
     createPopup(link, type, linkText, linkMeta);
   }
-  console.log('=======')
+  console.log('=======');
 });
 
 const popupStyle = `<style>
@@ -38,7 +37,7 @@ const popupStyle = `<style>
 .close-btn{position:absolute;top:5px;right:5px;padding:5px;}
 .save-text{display:inline-block;font-size:12px;margin:15px 0 10px;}
 .save-input{display:inline-block;border:1px solid #dfdfdf;border-radius:10px;padding:7px 10px;margin:0 0 10px;}
-</style>`
+</style>`;
 const channelsBtn = `<div class="option">
 <button class="save-btn" id="saveChannel">Save Channel</button>
 </div>`;
@@ -122,7 +121,7 @@ function saveToLocalStorage(category, link, linkText, linkMeta, playlistName = n
   if (linkText === 'No text available' && document.getElementById('linkName')) {
     linkText = document.getElementById('linkName').value;
   }
-  chrome.storage.local.get([category], (result) => {
+  chrome.storage.local.get([ category ], result => {
     let items = result[category] || {};
     let save = false;
     const itemToSave = {
@@ -162,33 +161,33 @@ function saveToLocalStorage(category, link, linkText, linkMeta, playlistName = n
   });
 }
 
-function loadPlaylists(currentLink, linkText) {
-  chrome.storage.local.get(['playlists'], (result) => {
-    const playlists = result.playlists || {};
-    const playlistSelect = document.getElementById('playlistSelect');
-    playlistSelect.innerHTML = '';
+// function loadPlaylists(currentLink, linkText) {
+//   chrome.storage.local.get([ 'playlists' ], result => {
+//     const playlists = result.playlists || {};
+//     const playlistSelect = document.getElementById('playlistSelect');
+//     playlistSelect.innerHTML = '';
 
-    for (let playlist in playlists) {
-      let option = document.createElement('option');
-      option.value = playlist;
-      option.textContent = playlist;
-      playlistSelect.appendChild(option);
-    }
+//     for (let playlist in playlists) {
+//       let option = document.createElement('option');
+//       option.value = playlist;
+//       option.textContent = playlist;
+//       playlistSelect.appendChild(option);
+//     }
 
-    playlistSelect.addEventListener('change', () => {
-      const selectedPlaylist = playlistSelect.value;
-      saveToLocalStorage('playlists', currentLink, linkText, selectedPlaylist);
-    });
-  });
-}
+//     playlistSelect.addEventListener('change', () => {
+//       const selectedPlaylist = playlistSelect.value;
+//       saveToLocalStorage('playlists', currentLink, linkText, selectedPlaylist);
+//     });
+//   });
+// }
 
 function getText (elements) {
-  const linkElement = elements.find((element) => {
+  const linkElement = elements.find(element => {
     const isVideo = element?.id.includes('video-title') || element.querySelector('#video-title');
     const isChannel = element.closest('#channel-name');
     return isVideo || isChannel;
   });
-  return linkElement?.title || linkElement?.querySelector('#video-title')?.title || linkElement?.textContent || "No text available";
+  return linkElement?.title || linkElement?.querySelector('#video-title')?.title || linkElement?.textContent || 'No text available';
 }
 
 function getMeta (elements, linkType) {
@@ -202,7 +201,7 @@ function getMeta (elements, linkType) {
       } else if (element.closest('#meta')?.querySelector('.ytd-channel-name a')) { // video lists
         metaElement = element.closest('#meta').querySelector('.ytd-channel-name a');
       }
-    })
+    });
     meta.channelName = metaElement?.textContent || '';
     meta.channelLink = metaElement?.href || '';
   } else {
@@ -211,7 +210,7 @@ function getMeta (elements, linkType) {
       if (element.closest('#details') && element.closest('#details').querySelector('#decorated-avatar img')) {
         metaElement = element.closest('#details').querySelector('#decorated-avatar img');
       }
-    })
+    });
     meta.avatar = metaElement?.src || '';
   }
 

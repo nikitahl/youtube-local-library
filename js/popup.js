@@ -1,3 +1,5 @@
+const { chrome } = window;
+
 document.getElementById('openPage').addEventListener('click', () => {
   chrome.tabs.create({ url: chrome.runtime.getURL('../library.html') });
 });
@@ -17,8 +19,7 @@ document.getElementById('openPage').addEventListener('click', () => {
 // (*) Add styles, account page, popup, save popup
 // (*) Add error handling (try/catch)
 // (*) Add icon
-// () Add GitHub repo
-// () Add webpack/eslint/setup env and bundle
+// (*) Add GitHub repo
 // () Publish
  
 // ( ) Allow to save videos to playlists

@@ -2,11 +2,18 @@
   "name": "youtube-local-library",
   "version": "1.0.0",
   "description": "Create YouTube playlists locally",
-  "main": "index.js",
+  "main": "index.html",
   "repository": {
     "url": "https://github.com/nikitahl/youtube-local-library",
     "type": "git"
   },
   "author": "Nikita Hlopov",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "eslint": "^9.8.0"
+  }
 }

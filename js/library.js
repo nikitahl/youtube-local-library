@@ -1,12 +1,14 @@
+const { chrome, URL } = window;
+
 document.addEventListener('DOMContentLoaded', () => {
   const videosList = document.getElementById('videosList');
   const channelsList = document.getElementById('channelsList');
 
   // Fetch saved videos from localStorage
-  chrome.storage.local.get({ watchlist: [] }, (result) => {
+  chrome.storage.local.get({ watchlist: [] }, result => {
     const savedVideos = result.watchlist.general;
-    console.log('watchlist',savedVideos)
-    savedVideos && savedVideos.forEach((video) => {
+    console.log('watchlist',savedVideos);
+    savedVideos && savedVideos.forEach(video => {
       const li = document.createElement('li');
       const videoLink = document.createElement('a');
       const channelLink = document.createElement('a');
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const removeBtnWrapper = document.createElement('div');
       const contentWrapper = document.createElement('div');
       const link = video.link;
-      const videoId = new URL(link).searchParams.get("v");
+      const videoId = new URL(link).searchParams.get('v');
       const embedHTML = `<iframe
       class="video-embed"
       loading="lazy"
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen></iframe>`
+      allowfullscreen></iframe>`;
       li.dataset.link = link;
       li.dataset.category = 'watchlist';
       li.dataset.type = 'video';
@@ -52,12 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Fetch saved channels from localStorage
-  chrome.storage.local.get({ channels: [] }, (result) => {
+  chrome.storage.local.get({ channels: [] }, result => {
     const savedChannels = result.channels.general;
-    console.log('result',result)
-    console.log('savedChannels',savedChannels)
+    console.log('result',result);
+    console.log('savedChannels',savedChannels);
 
-    savedChannels && savedChannels.forEach((channel) => {
+    savedChannels && savedChannels.forEach(channel => {
       const li = document.createElement('li');
       const channelLink = document.createElement('a');
       const removeBtn = document.createElement('button');
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.body.addEventListener('click', (e) => {
+  document.body.addEventListener('click', e => {
     const item = e.target.closest('li');
     const type = item.dataset.type;
     if (e.target.tagName === 'BUTTON' && e.target.classList.contains('remove-item') && window.confirm(`Do you really want to remove this ${type}?`)) {
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function removeFromLocalStorage(category, link, playlistName = null) {
-    chrome.storage.local.get([category], (result) => {
+    chrome.storage.local.get([ category ], result => {
       let items = result[category] || {};
       let save = false;
   
