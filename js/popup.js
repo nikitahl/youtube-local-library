@@ -1,5 +1,3 @@
-const { chrome } = window;
-
 document.getElementById('openPage').addEventListener('click', () => {
   chrome.tabs.create({ url: chrome.runtime.getURL('../library.html') });
 });
@@ -20,8 +18,10 @@ document.getElementById('openPage').addEventListener('click', () => {
 // (*) Add error handling (try/catch)
 // (*) Add icon
 // (*) Add GitHub repo
+// () Create a release
 // () Publish
  
+// () Add checks for local storage cpacity
 // ( ) Allow to save videos to playlists
 // ( ) Add ablitity to create playlists
 // ( ) Add dark mode (to the main extention popup)

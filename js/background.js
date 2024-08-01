@@ -1,5 +1,3 @@
-// Create context menu item
-const { chrome } = window;
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: 'saveTo',

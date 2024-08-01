@@ -12,7 +12,8 @@ export default [
         browser: true,
         document: 'readonly',
         window: 'readonly',
-        console: 'readonly'
+        console: 'readonly',
+        chrome: 'readonly'
       }
     },
     rules: {

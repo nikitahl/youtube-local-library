@@ -1,5 +1,3 @@
-const { chrome } = window;
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'getLinkParams') {
     const linkUrl = message.linkUrl;

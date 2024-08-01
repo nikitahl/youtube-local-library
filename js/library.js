@@ -1,4 +1,4 @@
-const { chrome, URL } = window;
+const { URL } = window;
 
 document.addEventListener('DOMContentLoaded', () => {
   const videosList = document.getElementById('videosList');
