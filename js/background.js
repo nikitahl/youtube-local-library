@@ -13,9 +13,6 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.linkUrl) {
     const linkType = determineLinkType(info.linkUrl);
-    // console.log('info.linkUrl',info.linkUrl);
-    // console.log('linkType',linkType);
-
     if (!linkType) {
       console.warn('The link you wish to save is not a video or a channel.');
       return false;

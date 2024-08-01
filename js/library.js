@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch saved videos from localStorage
   chrome.storage.local.get({ watchlist: [] }, result => {
     const savedVideos = result.watchlist.general;
-    console.log('watchlist',savedVideos);
     savedVideos && savedVideos.forEach(video => {
       const li = document.createElement('li');
       const videoLink = document.createElement('a');
@@ -56,9 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch saved channels from localStorage
   chrome.storage.local.get({ channels: [] }, result => {
     const savedChannels = result.channels.general;
-    console.log('result',result);
-    console.log('savedChannels',savedChannels);
-
     savedChannels && savedChannels.forEach(channel => {
       const li = document.createElement('li');
       const channelLink = document.createElement('a');
@@ -94,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const category = item.dataset.category;
       removeFromLocalStorage(category, link);
       item.remove();
-      console.log(e.target);
     }
   });
 

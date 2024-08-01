@@ -1,21 +1,11 @@
 const { chrome } = window;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // const pageUrl = new URL(window.location.href);
-  // const pageType = pageUrl.pathname;
-  // console.log('pageType',pageType)
-
-  // console.log('message',message);
-  // console.log('sender',sender);
   if (message.action === 'getLinkParams') {
     const linkUrl = message.linkUrl;
     const linkElements = Array.from(document.querySelectorAll('a')).filter(link => link.href === linkUrl);
-    console.log('linkElements',linkElements);
-
     const linkText = getText(linkElements);
     const linkMeta = getMeta(linkElements, message.linkType);
-    console.log('linkText',linkText);
-    console.log('linkMeta',linkMeta);
     sendResponse({
       linkText: linkText,
       linkMeta: linkMeta
@@ -23,10 +13,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   if (message.action === 'openPopup') {
     const { link, type, linkText, linkMeta } = message;
-    console.log('openPopup', { link, type, linkText, linkMeta });
     createPopup(link, type, linkText, linkMeta);
   }
-  console.log('=======');
 });
 
 const popupStyle = `<style>
@@ -150,7 +138,6 @@ function saveToLocalStorage(category, link, linkText, linkMeta, playlistName = n
       }
     }
 
-    console.log('itemToSave',itemToSave);
     if (save) {
       chrome.storage.local.set({ [category]: items }, () => {
         console.log(`${category} saved:`, itemToSave);
