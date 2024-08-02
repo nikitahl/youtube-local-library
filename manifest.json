@@ -10,12 +10,12 @@
     "activeTab"
   ],
   "background": {
-    "service_worker": "js/background.js"
+    "service_worker": "dist/js/background.min.js"
   },
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
-      "js": ["js/content.js"]
+      "js": ["dist/js/content.min.js"]
     }
   ],
   "host_permissions": [
