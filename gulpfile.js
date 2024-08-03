@@ -7,37 +7,37 @@ import gulpMode from 'gulp-mode';
 
 const mode = gulpMode();
 const paths = {
-    scripts: {
-        src: 'js/**/*.js',
-        dest: 'dist/js/'
-    },
-    styles: {
-        src: 'css/**/*.css',
-        dest: 'dist/css/'
-    }
+  scripts: {
+    src: 'js/**/*.js',
+    dest: 'dist/js/'
+  },
+  styles: {
+    src: 'css/**/*.css',
+    dest: 'dist/css/'
+  }
 };
 
 function minifyJs() {
-    return gulp.src(paths.scripts.src)
-        .pipe(mode.development(sourcemaps.init()))
-        .pipe(uglify())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(mode.development(sourcemaps.write()))
-        .pipe(gulp.dest(paths.scripts.dest));
+  return gulp.src(paths.scripts.src)
+    .pipe(mode.development(sourcemaps.init()))
+    .pipe(mode.production(uglify()))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(mode.development(sourcemaps.write()))
+    .pipe(gulp.dest(paths.scripts.dest));
 }
 
 function minifyCss() {
-    return gulp.src(paths.styles.src)
-        .pipe(mode.development(sourcemaps.init()))
-        .pipe(cleanCSS())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(mode.development(sourcemaps.write()))
-        .pipe(gulp.dest(paths.styles.dest));
+  return gulp.src(paths.styles.src)
+    .pipe(mode.development(sourcemaps.init()))
+    .pipe(mode.production(cleanCSS()))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(mode.development(sourcemaps.write()))
+    .pipe(gulp.dest(paths.styles.dest));
 }
 
 function watchFiles() {
-    gulp.watch(paths.scripts.src, minifyJs);
-    gulp.watch(paths.styles.src, minifyCss);
+  gulp.watch(paths.scripts.src, minifyJs);
+  gulp.watch(paths.styles.src, minifyCss);
 }
 
 const build = gulp.series(gulp.parallel(minifyJs, minifyCss));
