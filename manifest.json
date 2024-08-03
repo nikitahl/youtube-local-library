@@ -33,7 +33,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["library.html"],
+      "resources": ["library.html", "playlist.html"],
       "matches": ["<all_urls>"]
     }
   ]

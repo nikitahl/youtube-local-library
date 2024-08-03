@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Youtube Local Library</title>
+  <title>Playlist - Youtube Local Library</title>
   <link rel="stylesheet" href="dist/css/library.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="images/icon32.png">
 </head>
@@ -22,20 +22,10 @@
       </div>
       <h1>Youtube Local Library</h1>
     </div>
-    <div class="content">
-      <aside class="sidebar">
-        <h2>Channels:</h2>
-        <ul class="list channels" id="channelsList"></ul>
-      </aside>
-      <main class="main">
-        <h2>Watch later:</h2>
-        <ul class="list" id="videosList"></ul>
-        <h2>Playlists:</h2>
-        <div class="playlist-container" id="playlists"></div>
-      </main>
-    </div>
+    <h2 id="playlistTitle">Playlist:</h2>
+    <ul class="list" id="playlist"></ul>
   </div>
   <script src="dist/js/utils.min.js"></script>
-  <script src="dist/js/library.min.js"></script>
+  <script src="dist/js/playlist.min.js"></script>
 </body>
 </html>

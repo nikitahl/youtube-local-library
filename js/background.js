@@ -21,7 +21,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       linkUrl: info.linkUrl,
       linkType: linkType
     }, response => {
-      console.log('response',response);
       const linkText = response ? response.linkText : 'No text available';
       const linkMeta = response ? response.linkMeta : 'No meta available';
       
