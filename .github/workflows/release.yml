@@ -29,7 +29,7 @@ jobs:
       run: yarn build-prod
 
     - name: Run build script
-      run: bash build_release.sh
+      run: bash _tools/build_release.sh
 
     - name: Create Release
       id: create_release
