@@ -13,7 +13,9 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v3
       with:
-        ref: release-${{ github.ref_name }}  # Checkout the specific release branch based on the tag name
+        fetch-depth: 0  # Fetch all history so we can access tags and branches
+        # Use the correct ref name based on tag
+        ref: ${{ github.ref }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
