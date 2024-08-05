@@ -18,12 +18,12 @@ document.getElementById('openPage').addEventListener('click', () => {
 // (*) Add error handling (try/catch)
 // (*) Add icon
 // (*) Add GitHub repo
-// () Create a release
+// (*) Allow to save videos to playlists
+// (*) Add ablitity to create playlists
+// (*) Create a release
 // () Publish
  
 // () Add checks for local storage cpacity
-// ( ) Allow to save videos to playlists
-// ( ) Add ablitity to create playlists
 // ( ) Add dark mode (to the main extention popup)
 // ( ) Download (to the main extention popup)
 // ( )   Text file (to the main extention popup)
