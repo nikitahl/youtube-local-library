@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   chrome.storage.local.get({ playlists: [] }, result => {
     const playlists = result.playlists;
-    if (!playlists.length) {
+    if (Object.keys(playlists).length === 0) {
       playlistsContainer.innerHTML = '<p style="margin:0">You have no playlists.</p>';
       return;
     }
@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       avatar.classList.add('avatar');
       if (channel?.linkMeta?.avatar) {
         avatar.src = channel.linkMeta.avatar;
+        avatar.loading = 'lazy';
       }
       li.appendChild(avatar);
       li.appendChild(channelLink);
@@ -79,42 +80,4 @@ document.addEventListener('DOMContentLoaded', () => {
       channelsList.appendChild(li);
     });
   });
-
-  document.body.addEventListener('click', e => {
-    const item = e.target.closest('li');
-    const type = item.dataset.type;
-    if (e.target.tagName === 'BUTTON' && e.target.classList.contains('remove-item') && window.confirm(`Do you really want to remove this ${type}?`)) {
-      const link = item.dataset.link;
-      const category = item.dataset.category;
-      removeFromLocalStorage(category, link);
-      item.remove();
-    }
-  });
-
-  function removeFromLocalStorage(category, link, playlistName = null) {
-    chrome.storage.local.get([ category ], result => {
-      let items = result[category] || {};
-      let save = false;
-
-      if (playlistName) {
-        if (items[playlistName] && items[playlistName].find(item => item.link === link)) {
-          items[playlistName] = items[playlistName].filter(item => item.link !== link);
-          save = true;
-        }
-      } else {
-        if (items.general && items.general.find(item => item.link === link)) {
-          items.general = items.general.filter(item => item.link !== link);
-          save = true;
-        }
-      }
-
-      if (save) {
-        chrome.storage.local.set({ [category]: items }, () => {
-          console.log(`${category} removed:`, link);
-        });
-      } else {
-        console.log(`${link} does not exist in ${category}`);
-      }
-    });
-  }
 });
