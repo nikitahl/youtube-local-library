@@ -10,7 +10,9 @@ chrome.runtime.onInstalled.addListener(() => {
 // Handle context menu item click
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.linkUrl) {
-    const linkType = determineLinkType(info.linkUrl);
+    // eslint-disable-next-line
+    const linkUrl = new URL(info.linkUrl);
+    const linkType = determineLinkType(linkUrl);
     if (!linkType) {
       console.warn('The link you wish to save is not a video or a channel.');
       return false;
@@ -43,9 +45,10 @@ chrome.action.onClicked.addListener(() => {
 
 // Function to determine the type of YouTube link
 function determineLinkType(linkUrl) {
-  if (linkUrl.includes('watch?v=') || linkUrl.includes('youtu.be/')) {
+  const { pathname } = linkUrl;
+  if (pathname.startsWith('/watch') || pathname.startsWith('/shorts') || linkUrl.origin.includes('youtu.be/')) {
     return 'video';
-  } else if (linkUrl.includes('/@')) {
+  } else if (pathname.startsWith('/@') || pathname.startsWith('/channel')) {
     return 'channel';
   }
   return null;
