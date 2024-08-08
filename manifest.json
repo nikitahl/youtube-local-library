@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Youtube Local Library",
+  "name": "YouTube Local Library",
   "description": "Create YouTube playlists locally",
-  "version": "1.0",
+  "version": "1.0.0",
   "permissions": [
     "contextMenus",
     "storage",
