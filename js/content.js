@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
-const popupStyle = `<style>
+const popupStyle = `<style id="save-popup-styles">
 .save-btn,.close-btn{display:block;background:#eaeaea;border:none;cursor:pointer;padding:8px 24px;color:#333;border-radius:10px;}
 .save-btn{margin:0 0 8px;}
 .option:last-of-type .save-btn{margin:0;}
@@ -46,8 +46,11 @@ const closeBtn = '<button class="close-btn" id="closePopup" title="Close"><svg x
 
 function createPopup(link, type, linkText, linkMeta) {
   const existingPopup = document.getElementById('extension-popup');
+
   if (existingPopup) {
     existingPopup.remove();
+    const popupStyles = document.getElementById('save-popup-styles');
+    popupStyles.remove();
   }
 
   const popup = document.createElement('div');
@@ -108,7 +111,9 @@ function createPopup(link, type, linkText, linkMeta) {
   document.getElementById('closePopup').addEventListener('click', closePopup);
 
   function closePopup() {
+    const popupStyles = document.getElementById('save-popup-styles');
     popup.remove();
+    popupStyles.remove();
   }
 }
 
@@ -234,8 +239,12 @@ function getMeta (elements, linkType) {
   } else {
     let metaElement = null;
     elements.forEach(element => {
-      if (element.closest('#details') && element.closest('#details').querySelector('#decorated-avatar img')) {
-        metaElement = element.closest('#details').querySelector('#decorated-avatar img');
+      if (metaElement === null) {
+        if (element.closest('#details') && element.closest('#details').querySelector('#decorated-avatar img')) {
+          metaElement = element.closest('#details').querySelector('#decorated-avatar img');
+        } else if (element.closest('#channel-info') && element.closest('#channel-info').querySelector('#channel-thumbnail img')) {
+          metaElement = element.closest('#channel-info').querySelector('#channel-thumbnail img');
+        }
       }
     });
     meta.avatar = metaElement?.src || '';
