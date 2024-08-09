@@ -21,9 +21,9 @@ document.getElementById('openPage').addEventListener('click', () => {
 // (*) Allow to save videos to playlists
 // (*) Add ablitity to create playlists
 // (*) Create a release
-// () Publish
+// (-) Publish
  
-// () Fix remove video from playlist
+// (*) Fix remove video from playlist
 // () Add title for shorts
 // () Add more checks for avatar img
 // () Add more checks for channel name

@@ -1,6 +1,6 @@
 const { URL } = window;
 // eslint-disable-next-line
-function renderVideos(videos, container) { // used in playlists.js and library.js
+function renderVideos(videos, container, category, playlistName = null) { // used in playlists.js and library.js
   videos && videos.forEach(video => {
     const li = document.createElement('li');
     const videoLink = document.createElement('a');
@@ -20,8 +20,11 @@ function renderVideos(videos, container) { // used in playlists.js and library.j
     referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen></iframe>`;
     li.dataset.link = link;
-    li.dataset.category = 'watchlist';
+    li.dataset.category = category;
     li.dataset.type = 'video';
+    if (playlistName) {
+      li.dataset.playlistName = playlistName; 
+    }
     li.insertAdjacentHTML('afterbegin', embedHTML);
     contentWrapper.classList.add('video-content');
     removeBtnWrapper.classList.add('remove-wrapper');
@@ -51,7 +54,8 @@ function renderVideos(videos, container) { // used in playlists.js and library.j
     if (e.target.tagName === 'BUTTON' && e.target.classList.contains('remove-item') && window.confirm(`Do you really want to remove this ${type}?`)) {
       const link = item.dataset.link;
       const category = item.dataset.category;
-      removeFromLocalStorage(category, link);
+      const playlistName = item.dataset.playlistName;
+      removeFromLocalStorage(category, link, playlistName);
       item.remove();
     }
   });
@@ -62,8 +66,8 @@ function renderVideos(videos, container) { // used in playlists.js and library.j
       let save = false;
 
       if (playlistName) {
-        if (items[playlistName] && items[playlistName].find(item => item.link === link)) {
-          items[playlistName] = items[playlistName].filter(item => item.link !== link);
+        if (items[playlistName] && items[playlistName].videos.find(item => item.link === link)) {
+          items[playlistName].videos = items[playlistName].videos.filter(item => item.link !== link);
           save = true;
         }
       } else {
