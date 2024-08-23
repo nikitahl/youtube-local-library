@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: 'saveTo',
-    title: 'Save to ...',
+    title: 'Save to YouTube Local Library',
     contexts: [ 'link' ],
     documentUrlPatterns: [ '*://*.youtube.com/*' ]
   });
