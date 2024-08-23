@@ -132,7 +132,6 @@ function saveToLocalStorage(category, link, linkText, linkMeta, playlistName = n
   if (linkText === 'No text available' && document.getElementById('linkName')) {
     linkText = document.getElementById('linkName').value;
   }
-  // return false;
   chrome.storage.local.get([ category ], result => {
     let items = result[category] || {};
     let save = false;
